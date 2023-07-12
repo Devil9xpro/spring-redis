@@ -33,7 +33,7 @@ public class ProductController {
   }
 
   @GetMapping("/{id}")
-  @Cacheable(key = "#id", value = "Product") //enable caching: just fetching from db for the first time
+  @Cacheable(key = "#id", value = "Product", unless = "#result.price>1000") //enable caching: just fetching from db for the first time
   public Product findProduct(@PathVariable int id) {
     return productDao.findProductById(id);
   }
