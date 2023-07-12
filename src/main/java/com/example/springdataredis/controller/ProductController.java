@@ -3,6 +3,7 @@ package com.example.springdataredis.controller;
 import com.example.springdataredis.entity.Product;
 import com.example.springdataredis.repository.ProductDao;
 import java.util.List;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,6 +40,7 @@ public class ProductController {
   }
 
   @DeleteMapping("/{id}")
+  @CacheEvict(key = "#id", value = "Product") //delete cache
   public String remove(@PathVariable int id) {
     return productDao.deleteProduct(id);
   }
